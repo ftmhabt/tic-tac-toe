@@ -14,19 +14,37 @@ let gameboard=(function(){
     }
 
     let checkWin=function(sign){
-        
-        for (let j = 0, i = 0; j <= 3; j++) {
-            if(gameboard[i][j]===sign && gameboard[i][j+1]===sign && gameboard[i][j+2]===sign){
+
+        //check rows
+        for(let i = 0; i <= 3; i++){
+            if(gameboard[i][0]===sign && gameboard[i][1]===sign && gameboard[i][2]===sign){
                 console.log(sign+' wins');
-            }
-            else if(gameboard[i][j]===sign && gameboard[i+1][j]===sign && gameboard[i+2][j]===sign){
+                emptyGameboard();
+            }       
+        }
+
+        //check cols
+        for(let i = 0; i <= 3; i++){
+            if(gameboard[0][i]===sign && gameboard[1][i]===sign && gameboard[2][i]===sign){
                 console.log(sign+' wins');
-            }
-            else if(gameboard[i][j]===sign && gameboard[i+1][j+1]===sign && gameboard[i+2][j+2]===sign){
-                console.log(sign+' wins');
-            }
+                emptyGameboard();
+            }       
         }
         
+        //check diag
+        if(gameboard[0][0]===sign && gameboard[1][1]===sign && gameboard[2][2]===sign){
+            console.log(sign+' wins');
+            emptyGameboard();
+        }
+        else if(gameboard[0][2]===sign && gameboard[1][1]===sign && gameboard[2][0]===sign){
+            console.log(sign+' wins');
+            emptyGameboard();
+        }        
+        
+    }
+
+    let emptyGameboard=function(){
+        gameboard=[['','',''],['','',''],['','','']];
     }
 
     return {setPawn};
