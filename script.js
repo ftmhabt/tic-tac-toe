@@ -1,56 +1,89 @@
-let gameboard=(function(){
-    let gameboard=[['','',''],['','',''],['','','']];
+let gameboard = (function () {
 
-    let setPawn=function(row,col,sign){
-        if(gameboard[row][col]===''){
-            gameboard[row][col]=sign==='o'?'o':'x';
-            checkWin(sign);
+    let gameboard = [['', '', ''], ['', '', ''], ['', '', '']];
+    let lastSign='';
+
+    let setPawn = function (row, col, sign) {
+        if(_checkTurn(sign)){
+            if (gameboard[row][col] === '') {
+                gameboard[row][col] = sign === 'o' ? 'o' : 'x';
+                _checkWin(sign);
+            }
+            _showGameboard();
         }
-        showGameboard();
+        
     }
 
-    let showGameboard=function(){
+    let _checkTurn=function(sign){
+
+        if(lastSign!==sign){
+
+            lastSign=sign;
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    let _showGameboard = function () {
         console.table(gameboard);
     }
 
-    let checkWin=function(sign){
+    let _checkWin = function (sign) {
 
         //check rows
-        for(let i = 0; i <= 3; i++){
-            if(gameboard[i][0]===sign && gameboard[i][1]===sign && gameboard[i][2]===sign){
-                console.log(sign+' wins');
-                emptyGameboard();
-            }       
+        for (let i = 0; i < 3; i++) {
+            if (gameboard[i][0] === sign && gameboard[i][1] === sign && gameboard[i][2] === sign) {
+                console.log(sign + ' wins');
+                _emptyGameboard();
+            }
         }
 
         //check cols
-        for(let i = 0; i <= 3; i++){
-            if(gameboard[0][i]===sign && gameboard[1][i]===sign && gameboard[2][i]===sign){
-                console.log(sign+' wins');
-                emptyGameboard();
-            }       
+        for (let i = 0; i < 3; i++) {
+            if (gameboard[0][i] === sign && gameboard[1][i] === sign && gameboard[2][i] === sign) {
+                console.log(sign + ' wins');
+                _emptyGameboard();
+            }
         }
-        
+
         //check diag
-        if(gameboard[0][0]===sign && gameboard[1][1]===sign && gameboard[2][2]===sign){
-            console.log(sign+' wins');
-            emptyGameboard();
+        if (gameboard[0][0] === sign && gameboard[1][1] === sign && gameboard[2][2] === sign) {
+            console.log(sign + ' wins');
+            _emptyGameboard();
         }
-        else if(gameboard[0][2]===sign && gameboard[1][1]===sign && gameboard[2][0]===sign){
-            console.log(sign+' wins');
-            emptyGameboard();
-        }        
-        
+        else if (gameboard[0][2] === sign && gameboard[1][1] === sign && gameboard[2][0] === sign) {
+            console.log(sign + ' wins');
+            _emptyGameboard();
+        }
+
     }
 
-    let emptyGameboard=function(){
-        gameboard=[['','',''],['','',''],['','','']];
+    let _emptyGameboard = function () {
+        gameboard = [['', '', ''], ['', '', ''], ['', '', '']];
     }
 
-    return {setPawn};
+    return { setPawn };
 })();
 
-let players=(function(){
-    
+let player = (function () {
+    let name;
+    let sign;
+    let score = 0;
+    let setName = function (name) {
+        this.name = name;
+    }
+    let setSign = function (sign) {
+        this.sign = sign;
+    }
+    let addScore = function () {
+        this.score++;
+    }
+    let getScore = function () {
+        return this.score;
+    }
+
+    return { setName, setSign, addScore, getScore };
 })();
 
