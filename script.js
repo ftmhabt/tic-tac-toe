@@ -4,12 +4,12 @@ let gameboard = (function () {
     let lastSign='';
 
     let setPawn = function (row, col, player) {
-        if(_checkTurn(player.sign)){
-            if (gameboard[row][col] === '') {
+        if(gameboard[row][col] === ''){
+            if (_checkTurn(player.sign)) {
                 gameboard[row][col] = player.sign === 'o' ? 'o' : 'x';
                 _showGameboard();
                 if(_checkWin(player.sign)){
-                    player.addScore();
+                    player.score++;
                 }
             }
         }
@@ -69,25 +69,37 @@ let gameboard = (function () {
     return { setPawn };
 })();
 
-let player = (function () {
-    let name;
-    let sign;
-    let score = 0;
-    let setName = function (name) {
-        this.name = name;
-    }
-    let setSign = function (sign) {
-        this.sign = sign;
-    }
-    let addScore = function () {
-        this.score++;
-    }
-    let getScore = function () {
-        return this.score;
+let players = (function () {
+    
+    let players=[];
+    
+    let setPlayer = function (name,sign) {
+        players.push({name,sign,score:0});
+        return players.length-1;
     }
 
-    return { setName, setSign, addScore, getScore };
+    let getPlayer=function(index){
+        return players[index];
+    }
+
+    return { getPlayer,setPlayer };
 })();
 
+let p1=players.setPlayer('afshin','x');
+let p2=players.setPlayer('maryam','o');
+
+gameboard.setPawn(0,1,players.getPlayer(p1));
+gameboard.setPawn(1,0,players.getPlayer(p2));
+gameboard.setPawn(0,2,players.getPlayer(p1));
+gameboard.setPawn(2,0,players.getPlayer(p2));
+gameboard.setPawn(0,0,players.getPlayer(p1));
+
+
+gameboard.setPawn(2,0,players.getPlayer(p2));
+gameboard.setPawn(0,2,players.getPlayer(p1));
+gameboard.setPawn(1,0,players.getPlayer(p2));
+gameboard.setPawn(0,0,players.getPlayer(p1));
+gameboard.setPawn(1,1,players.getPlayer(p2));
+gameboard.setPawn(0,1,players.getPlayer(p1));
 
 
