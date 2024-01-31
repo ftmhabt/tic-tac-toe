@@ -1,33 +1,53 @@
 let gameboard = (function () {
 
     let gameboard = [['', '', ''], ['', '', ''], ['', '', '']];
-    let lastSign='';
+    let xTurn=true;
+    let sign ='x';
 
     let table=document.querySelectorAll('.gameboard>*');
     
 
-    let setPawn = function (row, col, player) {
+    function player(name) {
+        let score = 0;
+        return {
+            getScore: function() { console.log(score); },
+            addScore: function() { score++; }
+        }
+    }
+    
+    let p1=player('afshin');
+    let p2=player('maryam');
+
+    let setPawn = function (row, col, sign) {
         if(gameboard[row][col] === ''){
-            if (_checkTurn(player.getSign())) {
-                gameboard[row][col] = player.getSign() === 'o' ? 'o' : 'x';
-                _showGameboard();
-                if(_checkWin(player.getSign())){
-                    player.addScore();
-                }
+            gameboard[row][col] = sign;
+            _changeTurn();
+            _showGameboard();
+            if(_checkWin('x')){
+                p1.addScore();
+            }
+            else if(_checkWin('o')){
+                p2.addScore();
             }
         }
-        
     }
 
-    let _checkTurn=function(sign){
+    for (let i = 0 , c=0 ; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            table[c].addEventListener('click',function(){
+                setPawn(i,j,sign)
+            })
+            c++;
+        }
+    }
 
-        if(lastSign!==sign){
-
-            lastSign=sign;
-            return true;
+    let _changeTurn=function(){
+        xTurn=!xTurn;
+        if(xTurn){
+            sign='x';
         }
         else{
-            return false;
+            sign='o';
         }
     }
 
@@ -81,35 +101,8 @@ let gameboard = (function () {
         }
     }
 
-    return { setPawn };
 })();
 
-function player(name, sign) {
-    let score = 0;
 
-    return {
-        getSign: function() { return sign; },
-        getScore: function() { return score; },
-        addScore: function() { score++; },
-        getName: function() { return name; }
-    }
-}
-
-let p1=player('afshin','x');
-let p2=player('maryam','o');
-
-gameboard.setPawn(0,1,p1);
-gameboard.setPawn(1,0,p2);
-gameboard.setPawn(0,2,p1);
-gameboard.setPawn(2,0,p2);
-gameboard.setPawn(0,0,p1);
-
-
-gameboard.setPawn(2,0,p2);
-gameboard.setPawn(0,2,p1);
-gameboard.setPawn(1,0,p2);
-gameboard.setPawn(0,0,p1);
-gameboard.setPawn(1,1,p2);
-gameboard.setPawn(0,1,p1);
 
 
