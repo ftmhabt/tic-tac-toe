@@ -3,6 +3,9 @@ let gameboard = (function () {
     let gameboard = [['', '', ''], ['', '', ''], ['', '', '']];
     let lastSign='';
 
+    let table=document.querySelectorAll('.gameboard>*');
+    
+
     let setPawn = function (row, col, player) {
         if(gameboard[row][col] === ''){
             if (_checkTurn(player.getSign())) {
@@ -30,6 +33,7 @@ let gameboard = (function () {
 
     let _showGameboard = function () {
         console.table(gameboard);
+        _render();
     }
 
     let _checkWin = function (sign) {
@@ -64,6 +68,17 @@ let gameboard = (function () {
 
     let _emptyGameboard = function () {
         gameboard = [['', '', ''], ['', '', ''], ['', '', '']];
+    }
+
+    let _render=function(){
+        
+        for (let i = 0 , c=0 ; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                table[c].textContent=gameboard[i][j];
+                c++;
+                console.log(table[c]);
+            }
+        }
     }
 
     return { setPawn };
