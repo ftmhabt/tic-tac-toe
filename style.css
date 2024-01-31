@@ -1,0 +1,52 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+body{
+    height: 100vh;
+    display: flex;
+}
+
+/* gameboard */
+
+.container{
+    align-self: center;
+    background-color: darkseagreen;
+    height: 300px;
+    width: 90vw;
+    margin: 0 auto;
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    justify-content: center;
+}
+
+.container>*{
+    background-color: azure;
+}
+
+.gameboard{
+    width: 300px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 0.1rem;
+}
+
+.gameboard>*{
+    background-color: aquamarine;
+}
+
+/* scoreboards */
+
+.scoreboard{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.scoreboard>*{
+    background-color: brown;
+}
