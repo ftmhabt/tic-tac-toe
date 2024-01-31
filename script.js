@@ -5,11 +5,11 @@ let gameboard = (function () {
 
     let setPawn = function (row, col, player) {
         if(gameboard[row][col] === ''){
-            if (_checkTurn(player.sign)) {
-                gameboard[row][col] = player.sign === 'o' ? 'o' : 'x';
+            if (_checkTurn(player.getSign())) {
+                gameboard[row][col] = player.getSign() === 'o' ? 'o' : 'x';
                 _showGameboard();
-                if(_checkWin(player.sign)){
-                    player.score++;
+                if(_checkWin(player.getSign())){
+                    player.addScore();
                 }
             }
         }
@@ -69,37 +69,32 @@ let gameboard = (function () {
     return { setPawn };
 })();
 
-let players = (function () {
-    
-    let players=[];
-    
-    let setPlayer = function (name,sign) {
-        players.push({name,sign,score:0});
-        return players.length-1;
+function player(name, sign) {
+    let score = 0;
+
+    return {
+        getSign: function() { return sign; },
+        getScore: function() { return score; },
+        addScore: function() { score++; },
+        getName: function() { return name; }
     }
+}
 
-    let getPlayer=function(index){
-        return players[index];
-    }
+let p1=player('afshin','x');
+let p2=player('maryam','o');
 
-    return { getPlayer,setPlayer };
-})();
-
-let p1=players.setPlayer('afshin','x');
-let p2=players.setPlayer('maryam','o');
-
-gameboard.setPawn(0,1,players.getPlayer(p1));
-gameboard.setPawn(1,0,players.getPlayer(p2));
-gameboard.setPawn(0,2,players.getPlayer(p1));
-gameboard.setPawn(2,0,players.getPlayer(p2));
-gameboard.setPawn(0,0,players.getPlayer(p1));
+gameboard.setPawn(0,1,p1);
+gameboard.setPawn(1,0,p2);
+gameboard.setPawn(0,2,p1);
+gameboard.setPawn(2,0,p2);
+gameboard.setPawn(0,0,p1);
 
 
-gameboard.setPawn(2,0,players.getPlayer(p2));
-gameboard.setPawn(0,2,players.getPlayer(p1));
-gameboard.setPawn(1,0,players.getPlayer(p2));
-gameboard.setPawn(0,0,players.getPlayer(p1));
-gameboard.setPawn(1,1,players.getPlayer(p2));
-gameboard.setPawn(0,1,players.getPlayer(p1));
+gameboard.setPawn(2,0,p2);
+gameboard.setPawn(0,2,p1);
+gameboard.setPawn(1,0,p2);
+gameboard.setPawn(0,0,p1);
+gameboard.setPawn(1,1,p2);
+gameboard.setPawn(0,1,p1);
 
 
