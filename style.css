@@ -1,3 +1,8 @@
+:root{
+    --blue:#BA3B46;
+    --cream:#fceade;
+}
+
 *{
     box-sizing: border-box;
     margin: 0;
@@ -6,17 +11,18 @@
 }
 
 body{
+    background-color: var(--blue);
     height: 100vh;
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    padding-top: 2rem;
 }
 
 /* gameboard */
 
 .container{
     align-self: center;
-    background-color: darkseagreen;
     height: 300px;
     width: 90vw;
     margin: 0 auto;
@@ -24,10 +30,6 @@ body{
     gap: 1rem;
     padding: 1rem;
     justify-content: center;
-}
-
-.container>*{
-    background-color: azure;
 }
 
 .gameboard{
@@ -38,7 +40,7 @@ body{
 }
 
 .gameboard>*{
-    background-color: aquamarine;
+    background-color: white;
 }
 
 /* scoreboards */
@@ -50,5 +52,5 @@ body{
 }
 
 .scoreboard>*{
-    background-color: brown;
+    background-color: var(--cream);
 }
