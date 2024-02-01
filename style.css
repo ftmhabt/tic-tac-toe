@@ -1,16 +1,16 @@
-:root{
-    --blue:#BA3B46;
-    --cream:#fceade;
+:root {
+    --blue: #BA3B46;
+    --cream: #fceade;
 }
 
-*{
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     text-align: center;
 }
 
-body{
+body {
     background-color: var(--blue);
     height: 100vh;
     display: flex;
@@ -21,36 +21,60 @@ body{
 
 /* gameboard */
 
-.container{
+.container {
     align-self: center;
-    height: 300px;
-    width: 90vw;
     margin: 0 auto;
     display: flex;
     gap: 1rem;
-    padding: 1rem;
     justify-content: center;
 }
 
-.gameboard{
-    width: 300px;
+.gameboard {
+    
+    width: min(70vw, 70vh);
+    height: min(70vw, 70vh);
     display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 0.1rem;
+    grid-template-columns: repeat(3, calc(min(70vw, 70vh)/3));
+    grid-template-rows: repeat(3, calc(min(70vw, 70vh)/3));
 }
 
-.gameboard>*{
+.gameboard>* {
     background-color: white;
+    font-size: 5rem;
+    outline: #BA3B46 1px solid;
+    align-content: center;
 }
 
 /* scoreboards */
 
-.scoreboard{
-    flex: 1;
+.scoreboard {
+    width: 10rem;
     display: flex;
     flex-direction: column;
 }
 
-.scoreboard>*{
+.scoreboard>* {
     background-color: var(--cream);
+    flex: 1;
+    padding: 1rem;
+}
+
+.scoreboard>* {
+    background-color: var(--cream);
+    flex: 1;
+    padding: 1rem;
+}
+
+
+
+@media screen and (max-width:1080px) {
+    .container{
+        flex-direction: column;
+        margin: 0;
+    }
+
+    .scoreboard{
+        width: 70vw;
+        height: 10vh;
+    }
 }
